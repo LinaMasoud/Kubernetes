@@ -1,0 +1,22 @@
+---
+- name:  Reset the node without prompting for confirmation.
+  command: kubeadm reset -f
+
+- name: Reload Deamon and restart kubelet
+  service:
+    name: kubelet
+    daemon_reload: yes
+    state: restarted   
+
+- name: Flush ip tables 
+  command: "{{ item }}"
+  with_items:
+    - iptables -F
+    - iptables -t nat -F 
+    - iptables -t mangle -F 
+    - iptables -X
+
+- name: Remove .kube Folder 
+  file:
+    path: /{{ serviceAccount }}/.kube
+    state: absent

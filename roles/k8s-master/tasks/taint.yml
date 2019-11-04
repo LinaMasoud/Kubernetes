@@ -1,0 +1,4 @@
+---
+- name: Remove taint on Master Node
+  become_user: "{{ serviceAccount }}"
+  command: kubectl taint nodes --all node-role.kubernetes.io/master-

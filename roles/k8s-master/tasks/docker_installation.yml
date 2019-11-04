@@ -1,0 +1,27 @@
+---
+- name: Update the repository 
+  command: apt-get update
+
+- name: Install docker and its dependecies
+  apt: 
+    name: docker.io
+    state: present
+    update_cache: yes
+  notify:
+  - docker status
+
+- name: Add serviceaccount user to docker group
+  user:
+    name: "{{ serviceAccount }}"
+    group: docker
+    state: present
+
+- name: Start Docker
+  service:
+    name: docker
+    state: started
+
+- name: Enable Docker
+  service:
+    name: docker
+    enabled: yes          

@@ -1,0 +1,6 @@
+---
+- name: Enable Bash Auto-Completion in bashrc
+  become_user: "{{ serviceAccount }}"
+  lineinfile:
+    path: ~/.bashrc
+    line: source <(kubectl completion bash)

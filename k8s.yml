@@ -1,0 +1,8 @@
+---
+#Kubernetes Playbook 
+- hosts: master
+  become: true
+  gather_facts: True
+  roles:
+    - role: k8s-master
+    # - role: k8s-node

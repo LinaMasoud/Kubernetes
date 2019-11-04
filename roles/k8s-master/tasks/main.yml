@@ -1,0 +1,17 @@
+---
+- name: Disable Swap as Kubelet will not start if the system has swap enabled
+  import_tasks: disable_swap.yml  
+- name: Docker Installation  
+  import_tasks: docker_installation.yml
+- name: Installating Kubelet, kubeadm and kubectl
+  import_tasks: k8s_installation.yml
+- name: Initialize the Kubernetes cluster with kubeadm
+  import_tasks: cluster_initialization.yml
+- name: Setup the kube config file for the ansible_elk user to access the Kubernetes cluster
+  import_tasks: kubeconfig.yml
+- name: Setup the container networking provider and the network policy engine 
+  import_tasks: apply_container_networking.yml
+- name: Remove taint on Master Node
+  import_tasks: taint.yml
+- name: Enable bash auto-completion
+  import_tasks: enable_autocompletion.yml
